@@ -1,53 +1,31 @@
 import { fastify } from 'fastify';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import fastifyStatic from '@fastify/static';
 import { DatabasePostgres } from './src/services/database-postgres.js';
 import fastifyCors from '@fastify/cors';
 
 const server = fastify();
 
-// Obtém o diretório atual corretamente (equivalente a __dirname no ES6)
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 const database = new DatabasePostgres();
 
-// Servindo arquivos estáticos da pasta "public"
-server.register(fastifyStatic, {
-    root: path.join(__dirname, 'src', 'public'), // Caminho atualizado
-    prefix: '/public/',
-});
-
+// Configuração do CORS
 server.register(fastifyCors, {
-    origin: true, // Permite todas as origens (ou especifique a origem do seu frontend, como 'http://localhost:3001')
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-});
-
-// Rota para servir a página home.html
-server.get('/', async (request, reply) => {
-    return reply.sendFile('home.html', path.join(__dirname, 'src', 'views'));
-});
-
-// Rota para servir a página admin.html
-server.get('/views/admin', async (request, reply) => {
-    return reply.sendFile('admin.html', path.join(__dirname, 'src', 'views'));
+    origin: true, // Permite todas as origens
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
 });
 
 // =========================
 // Rotas da API de tarefas
 // =========================
 
-// Listar todas as tarefas (com busca opcional)
+// Rota para listar todas as tarefas (com busca opcional)
 server.get('/tarefas', async (request) => {
-    const search = request.query.search;
+    const search = request.query.search; // Parâmetro de busca opcional
 
-    const tarefas = await database.list(search);
-    console.log('Tarefas retornadas:', tarefas);
+    const tarefas = await database.list(search); // Lista as tarefas
+    console.log('Tarefas retornadas:', tarefas); // Log para depuração
     return tarefas;
 });
 
-// Criar uma nova tarefa
+// Rota para criar uma nova tarefa
 server.post('/tarefas', async (request, response) => {
     const { titulo, descricao, status } = request.body;
 
@@ -57,14 +35,12 @@ server.post('/tarefas', async (request, response) => {
         status
     });
 
-    console.log(database);
-
-    return response.status(201).send();
+    return response.status(201).send(); // Retorna status 201 (Created)
 });
 
-// Atualizar uma tarefa existente
+// Rota para atualizar uma tarefa existente
 server.put('/tarefas/:id', async (request, response) => {
-    const tarefaId = request.params.id;
+    const tarefaId = request.params.id; // ID da tarefa a ser atualizada
     const { titulo, descricao, status } = request.body;
 
     await database.update(tarefaId, {
@@ -73,22 +49,22 @@ server.put('/tarefas/:id', async (request, response) => {
         status
     });
 
-    return response.status(204).send();
+    return response.status(204).send(); // Retorna status 204 (No Content)
 });
 
-// Deletar uma tarefa
+// Rota para deletar uma tarefa
 server.delete('/tarefas/:id', async (request, response) => {
-    const tarefaId = request.params.id;
+    const tarefaId = request.params.id; // ID da tarefa a ser deletada
 
     await database.delete(tarefaId);
 
-    return response.status(204).send();
+    return response.status(204).send(); // Retorna status 204 (No Content)
 });
 
 // Iniciar o servidor
 server.listen({
-    host: '0.0.0.0',
-    port: process.env.PORT ?? 3000,
+    host: '0.0.0.0', // Escuta em todas as interfaces de rede
+    port: process.env.PORT ?? 3000, // Usa a porta definida no ambiente ou 3000
 }, () => {
     console.log(`Servidor rodando em http://localhost:${process.env.PORT ?? 3000}`);
 });

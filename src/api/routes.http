@@ -1,5 +1,5 @@
 ### Criar uma nova tarefa
-POST https://giga-cell.onrender.com/tarefas
+POST http://localhost:3000/tarefas
 Content-Type: application/json
 
 {
@@ -9,10 +9,10 @@ Content-Type: application/json
 }
 
 ### Listar todas as tarefas (com busca opcional)
-GET https://giga-cell.onrender.com/tarefas?search=
+GET http://localhost:3000/tarefas
 
 ### Atualizar uma tarefa existente
-PUT https://giga-cell.onrender.com/tarefas/1
+PUT http://localhost:3000/tarefas/1
 Content-Type: application/json
 
 {
@@ -22,4 +22,4 @@ Content-Type: application/json
 }
 
 ### Deletar uma tarefa
-DELETE https://giga-cell.onrender.com/tarefas/1
+DELETE http://localhost:3000/tarefas/1

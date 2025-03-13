@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto'
 import { sql } from '../config/db.js'; // Importe a configuração do banco de dados
 
 export class DatabasePostgres {
@@ -23,11 +24,12 @@ export class DatabasePostgres {
     // Método para criar uma nova tarefa
     async create(tarefa) {
         const { titulo, descricao, status } = tarefa;
+        const id = randomUUID(); // Gera um UUID único
 
         // Insere a tarefa no banco de dados
         await sql`
-            INSERT INTO tarefas (titulo, descricao, status) 
-            VALUES (${titulo}, ${descricao}, ${status})
+            INSERT INTO tarefas (id, titulo, descricao, status) 
+            VALUES (${id}, ${titulo}, ${descricao}, ${status})
         `;
     }
 

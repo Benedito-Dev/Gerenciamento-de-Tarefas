@@ -2,7 +2,7 @@ import { sql } from '../config/db.js'; // Importe a configuração do banco de d
 
 sql`
     CREATE TABLE tarefas (
-        id INT PRIMARY KEY,  
+        id TEXT,  
         titulo VARCHAR(255) NOT NULL,       
         descricao TEXT,                     
         status VARCHAR(50) NOT NULL DEFAULT 'nao_iniciada'

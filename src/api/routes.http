@@ -1,0 +1,25 @@
+### Criar uma nova tarefa
+POST https://giga-cell.onrender.com/tarefas
+Content-Type: application/json
+
+{
+    "titulo": "Estudar Node.js",
+    "descricao": "Revisar conceitos avançados de Node.js.",
+    "status": "nao_iniciada"
+}
+
+### Listar todas as tarefas (com busca opcional)
+GET https://giga-cell.onrender.com/tarefas?search=
+
+### Atualizar uma tarefa existente
+PUT https://giga-cell.onrender.com/tarefas/1
+Content-Type: application/json
+
+{
+    "titulo": "Estudar Node.js e PostgreSQL",
+    "descricao": "Revisar conceitos avançados de Node.js e PostgreSQL.",
+    "status": "em_progresso"
+}
+
+### Deletar uma tarefa
+DELETE https://giga-cell.onrender.com/tarefas/1

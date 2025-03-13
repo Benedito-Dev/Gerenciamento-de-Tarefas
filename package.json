@@ -1,0 +1,27 @@
+{
+  "name": "gerenciamento-de-tarefas",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Benedito-Dev/Gerenciamento-de-Tarefas.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Benedito-Dev/Gerenciamento-de-Tarefas/issues"
+  },
+  "homepage": "https://github.com/Benedito-Dev/Gerenciamento-de-Tarefas#readme",
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
+    "dotenv": "^16.4.7",
+    "fastify": "^5.2.1",
+    "neon": "^2.0.0"
+  }
+}

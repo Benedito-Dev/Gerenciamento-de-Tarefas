@@ -18,7 +18,7 @@ document.getElementById('addTaskForm').addEventListener('submit', async (event) 
 
         if (response.ok) {
             alert('Tarefa adicionada com sucesso!');
-            window.location.href = '/views/kanban.html'; // Redireciona para o Kanban
+            window.location.href = '/views/tasks.html'; // Redireciona para o Kanban
         } else {
             alert('Erro ao adicionar tarefa.');
         }

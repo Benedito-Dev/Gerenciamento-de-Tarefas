@@ -1,9 +1,12 @@
-/* src/public/css/global.css */
+/* src/public/css/tasks.css */
+
+/* Estilos Globais */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 /* Navbar */
@@ -11,14 +14,16 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #333;
-    padding: 10px 20px;
+    background-color: #2c3e50; /* Azul escuro */
+    padding: 15px 30px;
     color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-brand {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: bold;
+    color: #ecf0f1; /* Branco suave */
 }
 
 .navbar-links {
@@ -29,65 +34,87 @@ body {
 }
 
 .navbar-links li {
-    margin-left: 20px;
+    margin-left: 25px;
 }
 
 .navbar-links a {
-    color: #fff;
+    color: #ecf0f1; /* Branco suave */
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
 }
 
 .navbar-links a:hover {
+    color: #3498db; /* Azul claro */
     text-decoration: underline;
 }
 
+/* Kanban */
 .kanban {
     display: flex;
     justify-content: space-around;
-    padding: 20px;
+    padding: 30px;
+    background-color: #ecf0f1; /* Fundo claro */
+    min-height: calc(100vh - 80px); /* Altura total menos a altura da navbar */
 }
 
 .column {
     background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 30%;
-    padding: 15px;
+    height: 80vh;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.column:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .column h2 {
     text-align: center;
-    margin-bottom: 15px;
-    color: #333;
+    margin-bottom: 20px;
+    color: #2c3e50; /* Azul escuro */
+    font-size: 1.5rem;
 }
 
 .tasks {
-    min-height: 100px;
-    border: 2px dashed #ccc;
+    min-height: 150px;
+    border: 2px dashed #bdc3c7; /* Cinza claro */
     border-radius: 8px;
-    padding: 10px;
+    padding: 15px;
+    background-color: #f9f9f9; /* Fundo branco suave */
+    transition: border-color 0.3s ease;
+}
+
+.tasks.over {
+    border-color: #3498db; /* Azul claro quando uma tarefa é arrastada sobre a coluna */
 }
 
 .task {
-    background-color: #e3f2fd;
-    border-radius: 4px;
-    padding: 10px;
-    margin-bottom: 10px;
+    background-color: #e3f2fd; /* Azul claro */
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 12px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .task:hover {
-    background-color: #bbdefb;
+    background-color: #bbdefb; /* Azul mais claro */
+    transform: translateX(5px);
 }
 
 /* Estilo para quando uma tarefa está sendo arrastada */
 .task.dragging {
     opacity: 0.5;
+    transform: scale(0.95);
 }
 
 /* Estilo para quando uma coluna está recebendo uma tarefa */
 .column.over {
-    border: 2px dashed #000;
+    border: 2px dashed #3498db; /* Azul claro */
 }

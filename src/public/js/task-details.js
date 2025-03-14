@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('deletar').addEventListener('click', async () => {
         if (confirm('Tem certeza que deseja deletar esta tarefa?')) {
             try {
-                const response = await fetch(`/deletar-tarefa/${tarefaId}`, {
+                const response = await fetch(`/tarefas/${tarefaId}`, {
                     method: 'DELETE',
                 });
 

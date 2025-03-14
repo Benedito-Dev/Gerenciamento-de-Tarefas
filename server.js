@@ -115,6 +115,11 @@ server.delete('/tarefas/:id', async (request, response) => {
     return response.status(204).send(); // Retorna status 204 (No Content)
 });
 
+// Rota para servir a página tasks.html
+server.get("/views/tasks.html", async (request, response) => {
+  return response.sendFile("tasks.html", path.join(__dirname, "src", "views"));
+});
+
 // Iniciar o servidor
 server.listen({
     host: '0.0.0.0', // Escuta em todas as interfaces de rede

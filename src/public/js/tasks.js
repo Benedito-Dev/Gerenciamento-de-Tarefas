@@ -38,8 +38,8 @@ const renderizarKanban = (tarefas) => {
 
         // Adiciona evento de clique para redirecionar para detalhes da tarefa
         taskElement.addEventListener('click', () => {
-            window.location.href = `/detalhes-tarefa/${tarefa.id}`, '_blank'; // Abre em uma nova aba
-        });
+            window.location.href = `/task-details?id=${tarefa.id}`;
+                });
 
         switch (tarefa.status) {
             case 'nao_iniciada':

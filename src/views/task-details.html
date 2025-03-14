@@ -1,68 +1,54 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Detalhes da Tarefa</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        h1 {
-            color: #333;
-        }
-        p {
-            font-size: 18px;
-        }
-        #erro {
-            color: red;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="/public/css/global.css" />
+    <link rel="stylesheet" href="/public/css/task-details.css" />
 </head>
 <body>
-    <h1 id="titulo">Carregando...</h1>
-    <p><strong>Descrição:</strong> <span id="descricao">Carregando...</span></p>
-    <p><strong>Status:</strong> <span id="status">Carregando...</span></p>
-    <p><strong>Descrição:</strong> <span id="dataCriacao">Carregando...</span></p>
-    <p id="erro"></p>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <span>Task Nest</span> <!-- Nome da sua marca -->
+        </div>
+        <ul class="navbar-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/views/tasks.html">Tarefas</a></li>
+            <li><a href="/views/perfil.html">Perfil</a></li>
+            <li><a href="/views/settings.html">Settings</a></li>
+        </ul>
+    </nav>
 
-    <script>
-        // Função para carregar os detalhes da tarefa
-        async function carregarDetalhesTarefa() {
-            // Obtém o ID da tarefa da URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const tarefaId = urlParams.get('id');
+    <div class="main">
+        <div class="task-container">
+            <h1>Editar Tarefa</h1>
+            <form id="form-editar-tarefa">
+                <div class="form-group">
+                    <label for="titulo">Título:</label>
+                    <input type="text" id="titulo" name="titulo" required />
+                </div>
+                <div class="form-group">
+                    <label for="descricao">Descrição:</label>
+                    <textarea id="descricao" name="descricao" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status:</label>
+                    <select id="status" name="status" required>
+                        <option value="Pendente">Pendente</option>
+                        <option value="Em Progresso">Em Progresso</option>
+                        <option value="Concluída">Concluída</option>
+                    </select>
+                </div>
+                <p id="erro"></p>
+                <div class="task-actions">
+                    <button type="button" id="deletar">Deletar</button>
+                    <button type="submit" id="salvar">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>  
+    </div>
 
-            if (!tarefaId) {
-                document.getElementById('erro').textContent = 'ID da tarefa não encontrado na URL.';
-                return;
-            }
-
-            try {
-                // Faz a requisição para a API
-                const response = await fetch(`/detalhes-tarefa/${tarefaId}`);
-                if (!response.ok) {
-                    throw new Error('Tarefa não encontrada');
-                }
-
-                // Converte a resposta para JSON
-                const tarefa = await response.json();
-
-                // Exibe os detalhes da tarefa na página
-                document.getElementById('titulo').textContent = tarefa.titulo;
-                document.getElementById('descricao').textContent = tarefa.descricao;
-                document.getElementById('status').textContent = tarefa.status;
-                document.getElementById('dataCriacao').textContent = tarefa.descricao
-            } catch (error) {
-                console.error('Erro ao carregar detalhes da tarefa:', error);
-                document.getElementById('erro').textContent = error.message;
-            }
-        }
-
-        // Carrega os detalhes da tarefa quando a página é aberta
-        carregarDetalhesTarefa();
-    </script>
+    <script src="/public/js/task-details.js"></script>
 </body>
 </html>

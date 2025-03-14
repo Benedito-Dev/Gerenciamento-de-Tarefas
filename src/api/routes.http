@@ -3,9 +3,9 @@ POST http://localhost:3000/tarefas
 Content-Type: application/json
 
 {
-    "titulo": "Estudar Node.js",
-    "descricao": "Revisar conceitos avançados de Node.js.",
-    "status": "nao_iniciada"
+    "titulo": "Meditação Guiada",
+    "descricao": "Fazer uma sessão de meditação guiada de 15 minutos.",
+    "status": "em_progresso"
 }
 
 ### Listar todas as tarefas (com busca opcional)

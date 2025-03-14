@@ -1,0 +1,93 @@
+/* src/public/css/global.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px 20px;
+    color: #fff;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-links li {
+    margin-left: 20px;
+}
+
+.navbar-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.navbar-links a:hover {
+    text-decoration: underline;
+}
+
+.kanban {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.column {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    padding: 15px;
+}
+
+.column h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.tasks {
+    min-height: 100px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.task {
+    background-color: #e3f2fd;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.task:hover {
+    background-color: #bbdefb;
+}
+
+/* Estilo para quando uma tarefa está sendo arrastada */
+.task.dragging {
+    opacity: 0.5;
+}
+
+/* Estilo para quando uma coluna está recebendo uma tarefa */
+.column.over {
+    border: 2px dashed #000;
+}

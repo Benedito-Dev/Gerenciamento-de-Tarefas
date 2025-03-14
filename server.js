@@ -48,6 +48,22 @@ server.get('/tarefas', async (request) => {
     return tarefas;
 });
 
+server.get("/tarefas/:id", async (request, response) => {
+    const tarefaId = request.params.id; // Obtém o ID da tarefa
+
+    try {
+        const tarefa = await database.getById(tarefaId); // Busca a tarefa pelo ID
+        if (tarefa) {
+            return response.status(200).send(tarefa); // Retorna os detalhes da tarefa
+        } else {
+            return response.status(404).send({ message: "Tarefa não encontrada." }); // Retorna 404 se a tarefa não existir
+        }
+    } catch (error) {
+        console.error("Erro ao buscar tarefa:", error);
+        return response.status(500).send({ message: "Erro interno do servidor." });
+    }
+});
+
 // Rota para criar uma nova tarefa
 server.post('/tarefas', async (request, response) => {
     const { titulo, descricao, status } = request.body;

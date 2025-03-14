@@ -12,6 +12,7 @@ const database = new DatabasePostgres();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+
 // Configuração do CORS
 server.register(fastifyCors, {
     origin: true, // Permite todas as origens
@@ -44,23 +45,21 @@ server.get('/tarefas', async (request) => {
     const search = request.query.search; // Parâmetro de busca opcional
 
     const tarefas = await database.list(search); // Lista as tarefas
-    console.log('Tarefas retornadas:', tarefas); // Log para depuração
     return tarefas;
 });
 
-server.get("/tarefas/:id", async (request, response) => {
-    const tarefaId = request.params.id; // Obtém o ID da tarefa
-
+server.get('/detalhes-tarefa/:id', async (req, res) => {
     try {
-        const tarefa = await database.getById(tarefaId); // Busca a tarefa pelo ID
-        if (tarefa) {
-            return response.status(200).send(tarefa); // Retorna os detalhes da tarefa
-        } else {
-            return response.status(404).send({ message: "Tarefa não encontrada." }); // Retorna 404 se a tarefa não existir
+        const tarefaId = req.params.id;
+        const tarefa = await database.buscarTarefaPorId(tarefaId); // Busca a tarefa
+
+        if (!tarefa) {
+            return res.status(404).send({ error: 'Tarefa não encontrada' });
         }
+
+        return tarefa; // Envia os detalhes da tarefa como JSON
     } catch (error) {
-        console.error("Erro ao buscar tarefa:", error);
-        return response.status(500).send({ message: "Erro interno do servidor." });
+        return res.status(500).send({ error: 'Erro ao buscar detalhes da tarefa' });
     }
 });
 

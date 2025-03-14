@@ -50,4 +50,20 @@ export class DatabasePostgres {
         // Remove a tarefa do banco de dados
         await sql`DELETE FROM tarefas WHERE id = ${id}`;
     }
+
+    async buscarTarefaPorId(id) {
+        try {
+            // Busca a tarefa pelo ID
+            const [tarefa] = await sql`SELECT * FROM tarefas WHERE id = ${id}`;
+
+            if (!tarefa) {
+                throw new Error('Tarefa não encontrada');
+            }
+
+            return tarefa;
+        } catch (error) {
+            console.error('Erro ao buscar tarefa por ID:', error);
+            throw error;
+        }
+    }
 }

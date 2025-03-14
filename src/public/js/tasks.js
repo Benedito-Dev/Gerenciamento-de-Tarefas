@@ -13,6 +13,7 @@ const fetchTarefas = async () => {
 };
 
 // Função para renderizar as tarefas no Kanban
+// Função para renderizar as tarefas no Kanban
 const renderizarKanban = (tarefas) => {
     const tasksNaoConcluidas = document.getElementById('tasks-nao-concluidas');
     const tasksEmProgresso = document.getElementById('tasks-em-progresso');
@@ -34,6 +35,11 @@ const renderizarKanban = (tarefas) => {
         // Adiciona eventos de arrastar e soltar
         taskElement.addEventListener('dragstart', dragStart);
         taskElement.addEventListener('dragend', dragEnd);
+
+        // Adiciona evento de clique para redirecionar para detalhes da tarefa
+        taskElement.addEventListener('click', () => {
+            window.location.href = `/detalhes-tarefa/${tarefa.id}`, '_blank'; // Abre em uma nova aba
+        });
 
         switch (tarefa.status) {
             case 'nao_iniciada':
@@ -58,35 +64,35 @@ const renderizarKanban = (tarefas) => {
     });
 };
 
-// Variável para armazenar a tarefa sendo arrastada
+
 let tarefaArrastada = null;
 
-// Função chamada quando o arrasto começa
+
 const dragStart = (event) => {
     tarefaArrastada = event.target;
-    event.target.classList.add('dragging'); // Adiciona estilo ao arrastar
+    event.target.classList.add('dragging');
 };
 
-// Função chamada quando o arrasto termina
+
 const dragEnd = (event) => {
-    event.target.classList.remove('dragging'); // Remove estilo ao soltar
+    event.target.classList.remove('dragging'); 
     tarefaArrastada = null;
 };
 
-// Função chamada quando uma tarefa é arrastada sobre uma coluna
+
 const dragOver = (event) => {
     event.preventDefault();
-    event.target.classList.add('over'); // Adiciona estilo ao passar sobre a coluna
+    event.target.classList.add('over'); 
 };
 
-// Função chamada quando uma tarefa é solta em uma coluna
+
 const drop = (event) => {
     event.preventDefault();
-    event.target.classList.remove('over'); // Remove estilo ao soltar
+    event.target.classList.remove('over'); 
 
     if (tarefaArrastada) {
-        const column = event.target.closest('.column'); // Obtém a coluna onde a tarefa foi solta
-        column.querySelector('.tasks').appendChild(tarefaArrastada); // Adiciona a tarefa à coluna
+        const column = event.target.closest('.column'); 
+        column.querySelector('.tasks').appendChild(tarefaArrastada); 
     }
 };
 

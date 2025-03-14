@@ -1,53 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/public/css/global.css">
     <title>Detalhes da Tarefa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            font-size: 18px;
+        }
+        #erro {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="navbar-brand">
-            <span>Task Nest</span>
-        </div>
-        <ul class="navbar-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="/views/tasks.html">Tarefas</a></li>
-            <li><a href="/views/perfil.html">Perfil</a></li>
-            <li><a href="/views/settings.html">Settings</a></li>
-        </ul>
-    </nav>
-
-    <div class="container">
-        <h1>Detalhes da Tarefa</h1>
-        <div id="task-details"></div>
-    </div>
+    <h1 id="titulo">Carregando...</h1>
+    <p><strong>Descrição:</strong> <span id="descricao">Carregando...</span></p>
+    <p><strong>Status:</strong> <span id="status">Carregando...</span></p>
+    <p><strong>Data de Criação:</strong> <span id="dataCriacao">Carregando...</span></p>
+    <p id="erro"></p>
 
     <script>
-        document.addEventListener('DOMContentLoaded', async () => {
+        // Função para carregar os detalhes da tarefa
+        async function carregarDetalhesTarefa() {
+            // Obtém o ID da tarefa da URL
             const urlParams = new URLSearchParams(window.location.search);
-            const taskId = urlParams.get('id'); // Obtém o ID da tarefa da URL
+            const tarefaId = urlParams.get('id');
 
-            if (taskId) {
-                try {
-                    const response = await fetch(`/tarefas/${taskId}`); // Busca os detalhes da tarefa
-                    const tarefa = await response.json();
-
-                    const taskDetails = document.getElementById('task-details');
-                    taskDetails.innerHTML = `
-                        <h2>${tarefa.titulo}</h2>
-                        <p><strong>Status:</strong> ${tarefa.status}</p>
-                        <p><strong>Descrição:</strong> ${tarefa.descricao}</p>
-                    `;
-                } catch (error) {
-                    console.error('Erro ao buscar detalhes da tarefa:', error);
-                    document.getElementById('task-details').innerHTML = '<p>Erro ao carregar os detalhes da tarefa.</p>';
-                }
-            } else {
-                document.getElementById('task-details').innerHTML = '<p>Tarefa não encontrada.</p>';
+            if (!tarefaId) {
+                document.getElementById('erro').textContent = 'ID da tarefa não encontrado na URL.';
+                return;
             }
-        });
+
+            try {
+                // Faz a requisição para a API
+                const response = await fetch(`/detalhes-tarefa/${tarefaId}`);
+                if (!response.ok) {
+                    throw new Error('Tarefa não encontrada');
+                }
+
+                // Converte a resposta para JSON
+                const tarefa = await response.json();
+
+                // Exibe os detalhes da tarefa na página
+                document.getElementById('titulo').textContent = tarefa.titulo;
+                document.getElementById('descricao').textContent = tarefa.descricao;
+                document.getElementById('status').textContent = tarefa.status;
+                document.getElementById('dataCriacao').textContent = new Date(tarefa.dataCriacao).toLocaleString();
+            } catch (error) {
+                console.error('Erro ao carregar detalhes da tarefa:', error);
+                document.getElementById('erro').textContent = error.message;
+            }
+        }
+
+        // Carrega os detalhes da tarefa quando a página é aberta
+        carregarDetalhesTarefa();
     </script>
 </body>
 </html>
